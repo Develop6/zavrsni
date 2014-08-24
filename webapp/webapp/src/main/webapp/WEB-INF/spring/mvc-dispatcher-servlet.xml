@@ -28,7 +28,8 @@
 	<!-- Configures the @Controller programming model -->
 	<mvc:annotation-driven validator="validator"/>
 	
-	<task:annotation-driven />
+	<task:annotation-driven scheduler="taskScheduler"/>
+	<task:scheduler id="taskScheduler" pool-size="2"/>
 	
 	<bean name="validator"
 	    class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
