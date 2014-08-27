@@ -73,7 +73,6 @@ public class Job {
 		this.employer = employer;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="publish_date", nullable=false)
 	public Date getPublishDate() {
 		return publishDate;

@@ -1,6 +1,7 @@
 package net.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,6 +23,7 @@ public class Employer implements Serializable{
 	private String name;
 	private String address;
 	private String link;
+	private Date timestamp;
 	
 	private Set<Job> jobs = new HashSet<Job>(0);
 	
@@ -68,5 +70,14 @@ public class Employer implements Serializable{
 
 	public void setLink(String link) {
 		this.link = link;
+	}
+
+	@Column(name="timestamp", nullable=false)	
+	public Date getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(Date timestamp) {
+		this.timestamp = timestamp;
 	}
 }
