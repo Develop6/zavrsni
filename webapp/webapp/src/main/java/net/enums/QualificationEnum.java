@@ -5,29 +5,27 @@ import org.apache.commons.collections.bidimap.TreeBidiMap;
 
 public enum QualificationEnum {
 
-	NKV			(1,"NKV", "NKV"),
-	PKV			(2,"PKV", "PKV"),
-	KV			(3,"KV", "KV"),
-	VKV			(4,"VKV", "VKV"),
-	SSS			(5,"SSS", "Srednja stručna sprema"),
-	VSH			(6,"VSH", "Viša stručna sprema"),
-	BAC			(7,"BAC", "Stručni prvostupnik"),
-	UNIVBACC	(8,"UNIVBACC", "Sveučilišni prvostupnik"),
-	VSS			(9,"VSS", "Visoka stručna sprema"),
-	MBA			(10,"MBA", "MBA"),
-	MAG			(11,"MAG", "Magisterij"),
-	MAGS		(12,"MAGS", "Magistar struke"),
-	DOC			(13,"DOC", "Doktorat");
+	NKV			(1, "NKV"),
+	PKV			(2, "PKV"),
+	KV			(3, "KV"),
+	VKV			(4, "VKV"),
+	SSS			(5, "Srednja stručna sprema"),
+	VSH			(6, "Viša stručna sprema"),
+	BAC			(7, "Stručni prvostupnik"),
+	UNIVBACC	(8, "Sveučilišni prvostupnik"),
+	VSS			(9, "Visoka stručna sprema"),
+	MBA			(10, "MBA"),
+	MAG			(11, "Magisterij"),
+	MAGS		(12, "Magistar struke"),
+	DOC			(13, "Doktorat");
 	
 	private final int id;
-	private final String label;
 	private final String name;
 	
 	private static BidiMap jobTypeMap;
 	
-	QualificationEnum (int id, String label, String name) {
+	QualificationEnum (int id, String name) {
 		this.id = id;
-		this.label = label;
 		this.name = name;
 	}
 	
@@ -58,10 +56,6 @@ public enum QualificationEnum {
 	
 	public String getName() {
 		return name;
-	}	
-    
-	public String getLabel() {
-		return label;
 	}		
 	
 }

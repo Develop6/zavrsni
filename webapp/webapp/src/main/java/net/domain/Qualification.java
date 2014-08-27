@@ -19,7 +19,6 @@ public class Qualification implements Serializable{
 
 	private static final long serialVersionUID = 1371824691124216566L;
 	private int id;
-	private String label;
 	private String name;
 	
 	private Set<Job> jobs = new HashSet<Job>(0);
@@ -34,15 +33,6 @@ public class Qualification implements Serializable{
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	@Column(name="label", nullable=false, length=20)
-	public String getLabel() {
-		return label;
-	}
-
-	public void setLabel(String label) {
-		this.label = label;
 	}
 
 	@Column(name="name", nullable=false, length=50)

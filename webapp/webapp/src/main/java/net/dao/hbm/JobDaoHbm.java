@@ -1,9 +1,6 @@
 package net.dao.hbm;
 
-import java.util.Iterator;
-
 import net.dao.JobDao;
-import net.domain.Category;
 import net.domain.Job;
 
 import org.hibernate.HibernateException;
@@ -36,16 +33,6 @@ public class JobDaoHbm implements JobDao{
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-//		job = (Job)session.get(Job.class, 4);
-//		session.delete(job);
-//		Iterator<Category> itr = job.getCategories().iterator();
-//		
-//		while(itr.hasNext()) {
-//			Category cat = itr.next();
-//			System.out.println(cat.getId());
-//		}
-//		System.out.println();
-		
 	}
 	
 	@Transactional

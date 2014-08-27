@@ -5,24 +5,22 @@ import org.apache.commons.collections.bidimap.TreeBidiMap;
 
 public enum JobTypeEnum {
 
-	FULL_TIME				(1,"full_time", "Stalni radni odnos"),
-	CONCTRACT				(2,"contract", "Na određeno vrijeme"),
-	PART_TIME				(3,"part_time", "Honorarno"),
-	STUDENT					(4,"student", "Studentski ugovor"),
-	INTERNSHIP				(5,"internship", "Praksa"),
-	VOLUNTEERING			(6,"volunteering", "Volontiranje"),
-	SEASONAL				(7,"seasonal", "Sezonski"),
-	PROFESSIONAL_TRAINING	(8,"professional_training", "Stručno osposobljavanje");
+	FULL_TIME				(1, "Stalni radni odnos"),
+	CONCTRACT				(2, "Na određeno vrijeme"),
+	PART_TIME				(3, "Honorarno"),
+	STUDENT					(4, "Studentski ugovor"),
+	INTERNSHIP				(5, "Praksa"),
+	VOLUNTEERING			(6, "Volontiranje"),
+	SEASONAL				(7, "Sezonski"),
+	PROFESSIONAL_TRAINING	(8, "Stručno osposobljavanje");
 	
 	private final int id;
-	private final String label;
 	private final String name;
 	
 	private static BidiMap jobTypeMap;
 	
-	JobTypeEnum (int id, String label, String name) {
+	JobTypeEnum (int id, String name) {
 		this.id = id;
-		this.label = label;
 		this.name = name;
 	}
 	
@@ -53,10 +51,6 @@ public enum JobTypeEnum {
 	
 	public String getName() {
 		return name;
-	}    
-
-	public String getLabel() {
-		return label;
 	}	
 	
 }
