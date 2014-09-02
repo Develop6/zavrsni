@@ -42,7 +42,10 @@ public class ParserController {
 		
 		Job jobes = jobDaoManager.getJobById(243302);
 		
-//		log.info("Executing sql: MESSAGE");
+		log.info("Executing sql: MESSAGE");
+		log.debug("Executing sql: MESSAGE");
+		log.error("Executing sql: MESSAGE");
+		log.fatal("Executing sql: MESSAGE");
 		
 //		Hibernate.initialize(jobes.getCategories());
 //		Iterator<Category> itr = jobes.getCategories().iterator();
@@ -66,7 +69,7 @@ public class ParserController {
 			String urlParameters = null;
 			
 			try {
-				urlParameters = "?published=" + URLEncoder.encode("2", "UTF-8") +
+				urlParameters = "?published=" + URLEncoder.encode("1", "UTF-8") +
 						"&page=" + URLEncoder.encode(String.valueOf(pageCount), "UTF-8");
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
@@ -89,14 +92,25 @@ public class ParserController {
 				e.printStackTrace();
 			}
 			
-			JobParser jp = new JobParser(response);
+			JobParser jp = new JobParser(response);			
 			
 			if(jp.featuredJobsExist()) {
 				allJobs = jp.getFeaturedJobIdAndLink(allJobs);	
 			}
-			
-			allJobs = jp.getJobIdAndLink(allJobs);	
+
 			isLastPage = jp.checkIfLastPage();
+			
+			if(isLastPage) {
+				if (jp.regionalJobFirst()) {
+					break;
+				} else {
+					allJobs = jp.getJobIdAndLink(allJobs);
+				}
+			}
+			else {
+				allJobs = jp.getJobIdAndLink(allJobs);
+			}
+			
 			pageCount++;
 		}
 		

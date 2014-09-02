@@ -315,6 +315,20 @@ public class JobParser {
 		catch (IndexOutOfBoundsException e) {
 			return false;	
 		}
+	}	
+	
+	public boolean regionalJobFirst () {
+		
+		Elements elements = doc.select(".searchlist").eq(0);
+		for(Element element : elements) {
+			if(element.select("h2 span").text().contains("Regionalni poslovi")) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}	
+		return false;
 	}
 	
 	private String getEmployerName(Element jobElement, int id) {
@@ -358,12 +372,12 @@ public class JobParser {
 					return false;
 				}
 			}
-			return false;	
+			return true;	
 		}
 		else {
 			return true;
 		}
-	}
+	}	
 
 	public String getHtml() {
 		return html;
