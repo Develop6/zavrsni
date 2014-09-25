@@ -47,7 +47,7 @@ public class TestController {
 		Date date = new Date();
 		
 		Job job = new Job();
-		
+
 		job.setTitle(jp.getTitle());
 		job.setDeadline(jp.getApplicationDeadline());
 		job.setDescription(jp.getDescription());

@@ -209,5 +209,5 @@ public class Job {
 
 	public void setDrivingLicence(String drivingLicence) {
 		this.drivingLicence = drivingLicence;
-	}	
+	}
 }

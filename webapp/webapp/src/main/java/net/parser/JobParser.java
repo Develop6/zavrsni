@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import net.controller.ParserController;
 import net.domain.Category;
 import net.domain.County;
 import net.domain.Employer;
@@ -18,12 +19,15 @@ import net.enums.CountyEnum;
 import net.enums.JobTypeEnum;
 import net.enums.QualificationEnum;
 
+import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class JobParser {
+	
+	private Logger log = Logger.getLogger(JobParser.class);
 	
 	private String html;
 	private Document doc;
@@ -89,11 +93,16 @@ public class JobParser {
 		try {
 			date = new SimpleDateFormat("dd.MM.yyyy.").parse(appDeadline);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
+			log.error("ParseException. Method: getApplicationDeadline: " + e.toString());
 			e.printStackTrace();
 		}	
 		
 		return date;
+	}
+	
+	public boolean checkCloseBeforeDeadline () {
+		
+		return true;
 	}
 	
 	public String getDescription () {

@@ -2,9 +2,11 @@ package net.dao.hbm;
 
 import java.util.List;
 
+import net.controller.ParserController;
 import net.dao.EmployerDao;
 import net.domain.Employer;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -24,6 +26,8 @@ public class EmployerDaoHbm implements EmployerDao{
 	 */
 	@Autowired
 	private SessionFactory sessionFactory;	
+	
+	private Logger log = Logger.getLogger(EmployerDaoHbm.class);
 
 	public Employer getEmployerByName (String name) {
 		
@@ -36,6 +40,7 @@ public class EmployerDaoHbm implements EmployerDao{
 			searchCriteria.add(Restrictions.eq("name", name));
 			employers = searchCriteria.list();
 		} catch (Exception e) {
+			log.error("Exception. Method: getEmployerByName: " + e.toString() + ". Parameters: name = " + name);
 			e.printStackTrace();
 		}
 		
@@ -48,20 +53,32 @@ public class EmployerDaoHbm implements EmployerDao{
 	public Employer getEmployerById (int id) {
 		
 		Session session = sessionFactory.getCurrentSession();
-		return (Employer) session.get(Employer.class, id);
+		try {
+			return (Employer) session.get(Employer.class, id);
+		}
+		catch (Exception e) {
+			log.error("Exception. Method: getEmployerById: " + e.toString()
+					+ ". Parameters: id = " + id);			
+			return null;
+		}
 	}	
 	
 	public void saveEmployer(Employer employer) {
 		
 		Session session = sessionFactory.getCurrentSession();
-		
+
 		try {
 			session.save(employer);
+		} catch (HibernateException e) {
+			log.error("HibernateException. Method: saveEmployer: " + e.toString()
+					+ ". Parameters: id = " + employer.getId() + ", name = "
+					+ employer.getName());
+			e.printStackTrace();
+		} catch (Exception e) {
+			log.error("Exception. Method: saveEmployer: " + e.toString()
+					+ ". Parameters: id = " + employer.getId() + ", name = "
+					+ employer.getName());			
+			e.printStackTrace();
 		}
-		catch (HibernateException e) {
-			e.printStackTrace();
-		}catch (Exception e) {
-			e.printStackTrace();
-		}		
 	}
 }

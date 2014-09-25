@@ -42,11 +42,6 @@ public class ParserController {
 		
 		Job jobes = jobDaoManager.getJobById(243302);
 		
-		log.info("Executing sql: MESSAGE");
-		log.debug("Executing sql: MESSAGE");
-		log.error("Executing sql: MESSAGE");
-		log.fatal("Executing sql: MESSAGE");
-		
 //		Hibernate.initialize(jobes.getCategories());
 //		Iterator<Category> itr = jobes.getCategories().iterator();
 //			
@@ -72,23 +67,16 @@ public class ParserController {
 				urlParameters = "?published=" + URLEncoder.encode("1", "UTF-8") +
 						"&page=" + URLEncoder.encode(String.valueOf(pageCount), "UTF-8");
 			} catch (UnsupportedEncodingException e) {
+				log.error("UnsupportedEncodingException: " + e.toString() + ". Parameters: " + urlParameters);
 				e.printStackTrace();
 			}
-	
-			//pojedini poslovi
-	//		String response = HttpRequestHandling.sendGet("http://m.moj-posao.net/Posao/243890/Java-Web-Developer-mz/Invitation/307677/", urlParameters);
-	//		String response = HttpRequestHandling.sendGet("http://m.moj-posao.net/Posao/243855/Suradnik-u-veleprodaji-mz/", urlParameters);
-	//		String response = HttpRequestHandling.sendGet("http://m.moj-posao.net/Posao/242927/Tehnicar-elektro-struke-mz/", urlParameters);
-	//		String response = HttpRequestHandling.sendGet("http://m.moj-posao.net/Posao/243949/Financijski-knjigovodja-mz/", urlParameters);
-	//		String response = HttpRequestHandling.sendGet("http://m.moj-posao.net/Posao/244079/Monter-ALU-i-PVC-stolarije-mz/", urlParameters);
-			//http://www.moj-posao.net/Posao/243949/Financijski-knjigovodja-mz/
 			
 			// svi poslovi
 			String response = null;
 			try {
 				response = HttpRequestHandling.sendGet("http://www.moj-posao.net/Pretraga-Poslova/", urlParameters);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				log.error("IOException: " + e.toString() + ". Parameters: " + urlParameters);
 				e.printStackTrace();
 			}
 			
@@ -117,7 +105,7 @@ public class ParserController {
 		JobParser jp = new JobParser("");
 		String response = null;
 		
-		// iterates through jobs and saves them into database if they doesn't exist
+		// iterates through jobs and saves them into database if they don't exist
 		int count = 0;
 		for(Job job : allJobs) {
 			
@@ -159,14 +147,14 @@ public class ParserController {
 						try {
 							response = HttpRequestHandling.sendGet(job.getEmployer().getLink(), "");
 						} catch (IOException e) {
-							// TODO Auto-generated catch block
+							log.error("IOException: " + e.toString() + ". Employer link: " + job.getEmployer().getLink());
 							e.printStackTrace();
 						}
-						
-						jp = new JobParser(response);						
+
+						jp = new JobParser(response);
 						String address = jp.getEmployerAddress();
-						
 						job.getEmployer().setAddress(address);
+						
 						employerDaoManager.saveEmployer(job.getEmployer());
 					}
 				}
@@ -174,7 +162,7 @@ public class ParserController {
 				try {
 					response = HttpRequestHandling.sendGet(job.getLink(), "");
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
+					log.error("IOException: " + e.toString() + ". Job link: " + job.getLink());
 					e.printStackTrace();
 				}
 				
@@ -182,6 +170,7 @@ public class ParserController {
 				
 				String title = jp.getTitle(); 
 				if(title == null || title.equals("")) {
+					log.error("Title = ");
 					continue;
 				}
 				
@@ -209,7 +198,7 @@ public class ParserController {
 				try {
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
+					log.error("InterruptedException: " + e.toString());
 					e.printStackTrace();
 				}
 				count++;				
@@ -217,45 +206,5 @@ public class ParserController {
 		}
 		
 		System.out.println();
-		
-//		Employer employer = new Employer();
-//		employer.setId(1);
-//		
-//		Category category = new Category();
-//		category.setId(CategoryEnum.PRAVO.getId());
-//		Set<Category> categories = new HashSet<Category>();
-//		categories.add(category);
-//		
-//		County county = new County();
-//		county.setId(CountyEnum.getId("Međimurska"));
-//		Set<County> counties = new HashSet<County>();
-//		counties.add(county);
-//		
-//		JobType jobType = new JobType();
-//		jobType.setId(JobTypeConstants.PART_TIME_ID);
-//		Set<JobType> jobTypes = new HashSet<JobType>();
-//		jobTypes.add(jobType);
-//		
-//		Qualification qualification = new Qualification();
-//		qualification.setId(JobQualificationConstants.MBA_ID);
-//		Set<Qualification> qualifications = new HashSet<Qualification>();
-//		qualifications.add(qualification);
-//		
-//		Date date = new Date();
-//		
-//		Job job = new Job();
-//		job.setEmployer(employer);
-//		job.setName("poslic");
-//		job.setExpirationDate(date);
-//		job.setId(4);
-//		job.setCategories(categories);
-//		job.setCounties(counties);
-//		job.setJobTypes(jobTypes);
-//		job.setQualifications(qualifications);
-//		
-//		
-//		testDaoManager.testMethod(job);
-//		
-//		return null;
 	}
 }
